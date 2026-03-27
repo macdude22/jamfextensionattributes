@@ -1,0 +1,34 @@
+#!/bin/bash
+# Purpose: Install or re-enable EndNote CWYW add-in for Microsoft Word on macOS
+# Compatible with EndNote 2025 and Word 2019/2021/365
+# Author: Alexander Kaltsas - Adapted from Der Flounder deployment practices
+
+#!/bin/bash
+
+# Define source and destination paths
+SOURCE="/Applications/EndNote 2025/Cite While You Write/EndNote CWYW Word 16.bundle"
+DESTINATION="/Library/Application Support/Microsoft/Office365/User Content.localized/Startup.localized/Word"
+
+# Check if the source file exists
+if [ -e "$SOURCE" ]; then
+    # Create the destination directory if it does not exist
+    if [ ! -d "$DESTINATION" ]; then
+        mkdir -p "$DESTINATION"
+        echo "Created directory: $DESTINATION"
+    fi
+
+    # Copy the bundle to the destination
+    cp -R "$SOURCE" "$DESTINATION"
+    echo "Copied $SOURCE to $DESTINATION"
+
+    # Set appropriate ownership and permissions (optional)
+    chown -R root:wheel "$DESTINATION/CWYW Word 16.bundle"
+    chmod -R 755 "$DESTINATION/CWYW Word 16.bundle"
+
+    echo "Permissions set for $DESTINATION/CWYW Word 16.bundle"
+else
+    echo "Error: Source file $SOURCE does not exist."
+    exit 1
+fi
+
+exit 0
