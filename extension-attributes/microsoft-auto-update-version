@@ -1,0 +1,5 @@
+MAUVERSION=`defaults read /Library/Application\ Support/Microsoft/MAU2.0/Microsoft\ AutoUpdate.app/Contents/Info CFBundleShortVersionString`
+
+echo "<result>$MAUVERSION</result>"
+
+exit 0
